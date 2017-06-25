@@ -22,7 +22,9 @@ public class DoorControler : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-
+			if(nextDoor.GetComponent<DoorControler>() == null) {
+				Debug.Log ("NULL");
+			}
             other.gameObject.transform.position = nextDoor.GetComponent<DoorControler>().getPlayerPosition();
         }
             
