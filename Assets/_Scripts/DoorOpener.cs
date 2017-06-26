@@ -8,7 +8,7 @@ public class DoorOpener : MonoBehaviour
 
     Animator animator;
     bool colision;
-    bool blocked;  //dorobic blokowanie
+    public bool blocked;  
     bool open;
     public Canvas canvas;
 
@@ -25,16 +25,24 @@ public class DoorOpener : MonoBehaviour
     {
         if (Input.GetKeyDown("f")&&colision)
         {
-            animator.SetTrigger("close");
-            open = !open;
-            changeText();
+            if (!blocked)
+            {
+                animator.SetTrigger("close");
+                open = !open;
+                changeText();
+            }
+            else
+            {
+                canvas.GetComponent<HUD>().setText("Locked");
+            }
+                
         }
 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player") //dorobić wyświetlenie napisu
+        if (other.gameObject.tag == "Player")
         {
             Debug.Log("COLIDING");
             colision = true;
@@ -59,6 +67,11 @@ public class DoorOpener : MonoBehaviour
         {
             canvas.GetComponent<HUD>().setText("Press F to open");
         }
+    }
+
+    public void unlockDoor()
+    {
+        blocked = false;
     }
 
 }
