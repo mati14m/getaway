@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class DoorOpener : MonoBehaviour
 {
-
+    public bool needCode;
+    public bool blocked;
+    public string code;
+    private GameObject InsertCode;
     Animator animator;
     bool colision;
-    public bool blocked;  
     bool open;
-    public Canvas canvas;
+    Canvas canvas;
 
     // Use this for initialization
     void Start()
@@ -18,6 +20,12 @@ public class DoorOpener : MonoBehaviour
         colision = false;
         open = false;
         animator = GetComponent<Animator>();
+        canvas = FindObjectOfType<Canvas>();
+        if (needCode)
+        {
+            InsertCode = GameObject.FindGameObjectWithTag("Code");
+            blocked = true;
+        }
     }
 
     // Update is called once per frame
@@ -25,16 +33,7 @@ public class DoorOpener : MonoBehaviour
     {
         if (Input.GetKeyDown("f")&&colision)
         {
-            if (!blocked)
-            {
-                animator.SetTrigger("close");
-                open = !open;
-                changeText();
-            }
-            else
-            {
-                canvas.GetComponent<HUD>().setText("Locked");
-            }
+            keyDown();
                 
         }
 
@@ -44,17 +43,19 @@ public class DoorOpener : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("COLIDING");
             colision = true;
         }
         changeText();
-        
     }
 
     private void OnTriggerExit(Collider other)
     {
         colision = false;
         canvas.GetComponent<HUD>().setText("");
+        if (needCode)
+        {
+            InsertCode.transform.Find("View").gameObject.SetActive(false);
+        }
     }
 
     private void changeText()
@@ -72,6 +73,34 @@ public class DoorOpener : MonoBehaviour
     public void unlockDoor()
     {
         blocked = false;
+        if (needCode)
+        {
+            InsertCode.transform.Find("View").gameObject.SetActive(false);
+            needCode = false;
+        }
+    }
+
+    private void keyDown()
+    {
+        if (blocked)
+        {
+            canvas.GetComponent<HUD>().setText("Locked");
+            if (needCode)
+            {
+                InsertCode.transform.Find("View").gameObject.SetActive(true);
+                InsertCode.GetComponent<InsertCodeController>().setCode(code, gameObject);
+            }
+            blocked = true;
+        }
+        else
+        {
+            if (!needCode) 
+            {
+                animator.SetTrigger("close");
+                open = !open;
+                changeText();
+            }
+        }
     }
 
 }
