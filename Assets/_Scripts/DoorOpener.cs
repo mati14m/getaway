@@ -54,7 +54,6 @@ public class DoorOpener : MonoBehaviour
         canvas.GetComponent<HUD>().setText("");
         if (needCode)
         {
-            //InsertCode.transform.Find("View").gameObject.SetActive(false);
             InsertCode.setUnactive();
         }
     }
@@ -76,7 +75,6 @@ public class DoorOpener : MonoBehaviour
         blocked = false;
         if (needCode)
         {
-            //InsertCode.transform.Find("View").gameObject.SetActive(false);
             InsertCode.setUnactive();
             needCode = false;
         }
@@ -89,7 +87,6 @@ public class DoorOpener : MonoBehaviour
             canvas.GetComponent<HUD>().setText("Locked");
             if (needCode)
             {
-                //InsertCode.transform.Find("View").gameObject.SetActive(true);
                 InsertCode.setActive();
                 InsertCode.setCode(code, gameObject);
             }
