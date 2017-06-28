@@ -6,10 +6,11 @@ public class PortalControler : MonoBehaviour
 {
     public int type; //1-N 2-E 3-S 4-W
     public GameObject nextDoor;
+    public DoorOpener doorOpener;
     // Use this for initialization
     void Start()
     {
-
+        doorOpener = GetComponentInParent<DoorOpener>();
     }
 
     // Update is called once per frame
@@ -19,7 +20,7 @@ public class PortalControler : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player"&&doorOpener.open)
         {
             if (nextDoor.GetComponent<PortalControler>() == null)
             {

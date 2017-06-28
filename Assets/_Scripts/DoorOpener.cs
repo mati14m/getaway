@@ -8,10 +8,10 @@ public class DoorOpener : MonoBehaviour
     public bool needCode;
     public bool blocked;
     public string code;
-    private GameObject InsertCode;
+    private InsertCodeController InsertCode;
     Animator animator;
     bool colision;
-    bool open;
+    public bool open;
     Canvas canvas;
 
     // Use this for initialization
@@ -23,7 +23,7 @@ public class DoorOpener : MonoBehaviour
         canvas = FindObjectOfType<Canvas>();
         if (needCode)
         {
-            InsertCode = GameObject.FindGameObjectWithTag("Code");
+            InsertCode = GameObject.FindGameObjectWithTag("Code").GetComponent<InsertCodeController>();
             blocked = true;
         }
     }
@@ -54,7 +54,8 @@ public class DoorOpener : MonoBehaviour
         canvas.GetComponent<HUD>().setText("");
         if (needCode)
         {
-            InsertCode.transform.Find("View").gameObject.SetActive(false);
+            //InsertCode.transform.Find("View").gameObject.SetActive(false);
+            InsertCode.setUnactive();
         }
     }
 
@@ -75,7 +76,8 @@ public class DoorOpener : MonoBehaviour
         blocked = false;
         if (needCode)
         {
-            InsertCode.transform.Find("View").gameObject.SetActive(false);
+            //InsertCode.transform.Find("View").gameObject.SetActive(false);
+            InsertCode.setUnactive();
             needCode = false;
         }
     }
@@ -87,8 +89,9 @@ public class DoorOpener : MonoBehaviour
             canvas.GetComponent<HUD>().setText("Locked");
             if (needCode)
             {
-                InsertCode.transform.Find("View").gameObject.SetActive(true);
-                InsertCode.GetComponent<InsertCodeController>().setCode(code, gameObject);
+                //InsertCode.transform.Find("View").gameObject.SetActive(true);
+                InsertCode.setActive();
+                InsertCode.setCode(code, gameObject);
             }
             blocked = true;
         }

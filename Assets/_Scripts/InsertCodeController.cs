@@ -14,6 +14,7 @@ public class InsertCodeController : MonoBehaviour {
     string code;
     GameObject door;
     private Canvas canvas;
+    public MouseLook mouseLook;
 
     // Use this for initialization
     void Start () {
@@ -52,5 +53,17 @@ public class InsertCodeController : MonoBehaviour {
         text4.text = "";
         this.code = code;
         this.door = door;
+    }
+
+    public void setActive()
+    {
+        transform.Find("View").gameObject.SetActive(true);
+        mouseLook.stopMouse();
+    }
+
+    public void setUnactive()
+    {
+        transform.Find("View").gameObject.SetActive(false);
+        mouseLook.startMouse();
     }
 }
