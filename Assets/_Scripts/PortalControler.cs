@@ -22,7 +22,6 @@ public class PortalControler : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player"&&doorOpener.open)
         {
-            Debug.Log("KKKKKKKKKKK");
             if (nextDoor.GetComponent<PortalControler>() == null)
             {
                 Debug.Log("NULL");
