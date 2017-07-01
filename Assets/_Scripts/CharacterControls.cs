@@ -52,6 +52,15 @@ public class CharacterControls : MonoBehaviour
         rigidbody.AddForce(new Vector3(0, -gravity * rigidbody.mass, 0));
 
         grounded = false;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     void OnCollisionStay()
