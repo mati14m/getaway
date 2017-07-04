@@ -22,6 +22,7 @@ public class CharacterControls : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.freezeRotation = true;
         rigidbody.useGravity = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void FixedUpdate()
@@ -57,7 +58,7 @@ public class CharacterControls : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown("l"))
         {
             Cursor.lockState = CursorLockMode.Locked;
         }

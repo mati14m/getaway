@@ -14,6 +14,7 @@ public class PainterScript : MonoBehaviour
     /// </summary>
     public Transform PaintPrefab;
     public Camera camera;
+    MouseLook mouseLook;
 
     void Start()
     {
@@ -21,19 +22,20 @@ public class PainterScript : MonoBehaviour
         Instance = this;
 
         if (PaintPrefab == null) Debug.LogError("Missing Paint decal prefab!");
+        mouseLook = GetComponentInParent<MouseLook>();
     }
 
     void Update()
     {
         // Check for a click
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)&&mouseLook.working)
         {
             // Raycast
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 10))
+            if (Physics.Raycast(ray, out hit, 2))
             {
                 var hitRotation = Quaternion.FromToRotation(Vector3.down, hit.normal);
                 var tmp = Instantiate(PaintPrefab, hit.point, hitRotation);

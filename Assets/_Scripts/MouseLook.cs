@@ -31,7 +31,7 @@ public class MouseLook : MonoBehaviour
 
     float rotationY = 0F;
 
-    bool working;
+    public bool working;
 
     void Update()
     {
@@ -72,10 +72,13 @@ public class MouseLook : MonoBehaviour
     public void stopMouse()
     {
         working = false;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void startMouse()
     {
         working = true;
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 }
