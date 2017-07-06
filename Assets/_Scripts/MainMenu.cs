@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
 
-	public string gameplayLevelName;
+	public string gameplayLevelName = "Room";
 	public Button newGameButton;
 	public Button quitGameButton;
 
