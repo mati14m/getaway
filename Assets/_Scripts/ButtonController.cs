@@ -8,12 +8,14 @@ public class ButtonController : MonoBehaviour {
     bool pushed;
     bool colision;
     public List<GameObject> doors;
+    private AudioSource source;
     Animator animator;
 
     // Use this for initialization
     void Start () {
         pushed = false;
         animator = GetComponent<Animator>();
+        source = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -25,6 +27,7 @@ public class ButtonController : MonoBehaviour {
             unlockDoors();
             pushed = true;
             canvas.GetComponent<HUD>().setText("");
+            source.Play();
         }
 
     }

@@ -9,6 +9,7 @@ public class DoorOpener : MonoBehaviour
     public bool blocked;
     public string code;
     private InsertCodeController InsertCode;
+    private AudioSource source;
     Animator animator;
     bool colision;
     public bool open;
@@ -21,6 +22,7 @@ public class DoorOpener : MonoBehaviour
         open = false;
         animator = GetComponent<Animator>();
         canvas = FindObjectOfType<Canvas>();
+        source = GetComponent<AudioSource>();
         if (needCode)
         {
             InsertCode = GameObject.FindGameObjectWithTag("Code").GetComponent<InsertCodeController>();
@@ -99,6 +101,7 @@ public class DoorOpener : MonoBehaviour
                 animator.SetTrigger("close");
                 open = !open;
                 changeText();
+                source.Play();
             }
         }
     }
